@@ -62,7 +62,7 @@ fun App() {
                                 PlaybackParameters(
                                     volume = 0.2
                                 )
-                            ) {current, total ->
+                            ) { current, total ->
                                 currentTime = current.seconds.toFloat()
                                 totalTime = total.seconds.toFloat()
                             }
