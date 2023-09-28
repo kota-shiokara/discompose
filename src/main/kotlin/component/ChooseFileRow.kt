@@ -47,7 +47,7 @@ fun ChooseFileRow(
             },
             modifier = Modifier
         ) {
-            Text("Choose File")
+            Text("Choose a File")
         }
     }
     if (fileDialogState) {
