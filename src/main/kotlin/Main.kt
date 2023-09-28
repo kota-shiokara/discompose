@@ -1,12 +1,18 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Slider
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -21,6 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import component.ChooseFileRow
+import component.FileDialog
 import korlibs.audio.sound.AudioStream
 import korlibs.audio.sound.PlaybackParameters
 import korlibs.audio.sound.readAudioStream
@@ -30,6 +38,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import util.formatTimer
 import java.io.File
 
 @Composable
@@ -39,6 +48,7 @@ fun App() {
         val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main + Dispatchers.IO)
         var filePath by remember { mutableStateOf("") }
         var dialogState by remember { mutableStateOf(false) }
+
         var audioStream: AudioStream? by remember { mutableStateOf(null) }
         // 曲の時間
         var currentTime by remember { mutableStateOf(0f) }
@@ -50,7 +60,10 @@ fun App() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TextField(filePath, onValueChange = { filePath = it })
+            ChooseFileRow(filePath) {
+                filePath = it
+            }
+            Spacer(modifier = Modifier.padding(8.dp))
             Button(
                 onClick = {
                     println("Start")
@@ -72,22 +85,18 @@ fun App() {
                     }
                 }
             ) {
-                Text("再生")
+                Text("Play")
             }
 
             if (audioStream != null) {
-                val totalMinutesTime = totalTime.toInt() / 2 / 60
-                val totalSecondsTime = totalTime.toInt() / 2 % 60
-                val currentMinutesTime = currentTime.toInt() / 2 / 60
-                val currentSecondsTime = currentTime.toInt() / 2 % 60
-                Text("$currentMinutesTime:$currentSecondsTime / $totalMinutesTime:$totalSecondsTime")
+                Text("${(currentTime.toInt() / 2).formatTimer()} / ${(totalTime.toInt() / 2).formatTimer()}")
             }
 
             Slider(
                 currentTime,
                 onValueChange = {  }, // TODO: SeekBarとしての処理を追加
                 modifier = Modifier
-                    .padding(16.dp),
+                    .padding(horizontal = 32.dp),
                 valueRange = 0f..totalTime
             )
         }
@@ -96,6 +105,7 @@ fun App() {
                 onCloseRequest = { dialogState = false }
             ) {
                 Column(
+                    modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -103,22 +113,7 @@ fun App() {
                 }
             }
         }
-    }
-}
 
-@Composable
-@Preview
-fun LazyColumn(
-    content: () -> Unit
-) {
-    val scrollState = rememberLazyListState()
-
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize(),
-        state = scrollState
-    ) {
-        content()
     }
 }
 
