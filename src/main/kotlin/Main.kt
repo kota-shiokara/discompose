@@ -57,8 +57,8 @@ fun App() {
             Button(
                 onClick = {
                     println("Start")
+                    val file = File(filePath)
                     coroutineScope.launch(Dispatchers.IO) {
-                        val file = File(filePath)
                         if (file.exists()) {
                             audioStream = file.toVfs().readAudioStream()
                             audioStream!!.toSound().playAndWait(
