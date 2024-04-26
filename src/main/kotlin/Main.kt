@@ -23,15 +23,10 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import component.ChooseFileRow
-import korlibs.audio.sound.AudioStream
 import korlibs.audio.sound.PlaybackParameters
-import korlibs.audio.sound.PlaybackTimes
 import korlibs.audio.sound.SoundChannel
 import korlibs.audio.sound.await
-import korlibs.audio.sound.readAudioStream
 import korlibs.audio.sound.readSound
-import korlibs.audio.sound.toSound
-import korlibs.io.file.std.resourcesVfs
 import korlibs.io.file.std.toVfs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

@@ -31,8 +31,9 @@ compose.desktop {
         mainClass = "MainKt"
 
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb, TargetFormat.Exe)
             packageName = "discompose"
+            // versionが1.0.0を超えたらversionをそのままつっこもう
             packageVersion = "1.0.0"
         }
     }
