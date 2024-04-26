@@ -20,6 +20,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogWindow
+import androidx.compose.ui.window.DialogWindowScope
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import component.ChooseFileRow
@@ -114,17 +116,18 @@ fun App() {
             )
         }
         if (dialogState) {
-            Dialog(
-                onCloseRequest = { dialogState = false }
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text("File Not Found")
+            DialogWindow(
+                onCloseRequest = { dialogState = false },
+                content =  {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text("File Not Found")
+                    }
                 }
-            }
+            )
         }
 
     }

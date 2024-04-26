@@ -9,7 +9,7 @@ group = "jp.ikanoshiokara"
 version = "0.1.0"
 
 kotlin {
-    jvmToolchain(20)
+//    jvmToolchain(20)
 }
 
 repositories {
