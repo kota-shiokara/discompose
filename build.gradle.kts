@@ -18,7 +18,7 @@ dependencies {
     implementation(compose.desktop.currentOs)
 
     // Audio Library
-    val korauVersion = "4.0.2"
+    val korauVersion = "4.0.10"
     implementation("com.soywiz.korlibs.korau:korau:$korauVersion")
 }
 
