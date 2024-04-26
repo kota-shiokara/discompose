@@ -8,10 +8,6 @@ plugins {
 group = "jp.ikanoshiokara"
 version = "0.1.0"
 
-kotlin {
-    jvmToolchain(20)
-}
-
 repositories {
     mavenCentral()
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
